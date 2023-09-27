@@ -45,7 +45,7 @@ app.get('/gets',(req,res)=>{
 app.get('/gets-specific/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const item = data.find((entry) => entry.id === id);
+    const item = data.find((user) => user.id === id);
 
     if (item) {
       res.json(item);
@@ -63,10 +63,10 @@ app.patch('/updates/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const updateData = req.body;
 
-    const index = data.findIndex((entry) => entry.id === id);
+    const _element = data.findIndex((element) => element.id === id);
 
-    if (index !== -1) {
-      data[index] = { ...data[index], ...updateData };
+    if (_element !== -1) {
+      data[_element] = { ...data[_element], ...updateData };
 
       
       fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
@@ -89,10 +89,10 @@ app.delete('/deletes/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-    const index = data.findIndex((entry) => entry.id === id);
+    const  _element = data.findIndex((element) => element.id === id);
 
-    if (index !== -1) {
-      const deletedItem = data.splice(index, 1);
+    if (_element !== -1) {
+      const deletedItem = data.splice(_element, 1);
 
       
       fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
@@ -156,10 +156,10 @@ app.get('/product-gets',(req,res)=>{
 app.get('/specific-product/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const _product = product.find((entry) => entry.id === id);
+    const productElement = product.find((element) => element.id === id);
 
-    if (_product) {
-      res.json(_product);
+    if (productElement) {
+      res.json(productElement);
     } else {
       res.status(404).json({ message: 'Data with specified ID not found' });
     }
@@ -177,10 +177,10 @@ app.patch('/product-updates/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const updateProduct = req.body;
 
-    const index = product.findIndex((entry) => entry.id === id);
+    const productElement = product.findIndex((element) => element.id === id);
 
-    if (index !== -1) {
-      product[index] = { ...product[index], ...updateProduct };
+    if (productElement !== -1) {
+      product[productElement] = { ...product[productElement], ...updateProduct };
 
       
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
@@ -206,10 +206,10 @@ app.delete('/product-deletes/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-    const index = product.findIndex((entry) => entry.id === id);
+    const productElement = product.findIndex((element) => element.id === id);
 
-    if (index !== -1) {
-      const deletedItem = product.splice(index, 1);
+    if (productElement !== -1) {
+      const deletedItem = product.splice(productElement, 1);
 
       
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
@@ -232,7 +232,7 @@ app.delete('/product-deletes/:id', (req, res) => {
 
 
 
-//* sorting
+//*sorting
 //*search by product_type
 app.get('/product-filter-product-type', (req, res) => {
   try {
@@ -283,10 +283,10 @@ app.patch('/update-quantity/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const { quantity } = req.body;
 
-    const productIndex = product.findIndex((entry) => entry.id === id);
+    const productElement = product.findIndex((element) => element.id === id);
 
-    if (productIndex !== -1) {
-      product[productIndex].quantity = quantity;
+    if (productElement !== -1) {
+      product[productElement].quantity = quantity;
 
      
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
@@ -295,7 +295,7 @@ app.patch('/update-quantity/:id', (req, res) => {
         } else {
           res.json({
             message: 'Product quantity updated successfully',
-            updatedProduct: product[productIndex],
+            updatedProduct: product[productElement],
           });
         }
       });
@@ -313,7 +313,7 @@ app.patch('/update-quantity/:id', (req, res) => {
 
 app.get('/out-of-stock', (req, res) => {
   try {
-    const outOfStockProducts = product.filter((entry) => entry.quantity < 5);
+    const outOfStockProducts = product.filter((element) => element.quantity < 5);
 
     if (outOfStockProducts.length > 0) {
       res.json(outOfStockProducts);

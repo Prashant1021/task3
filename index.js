@@ -12,7 +12,7 @@ app.post('/creates', (req, res) => {
   try {
     const newData = req.body;
     data.push(newData);
-    fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
+    fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
     res.json({ message: 'Data added successfully', newData });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -64,7 +64,7 @@ app.patch('/updates/:id', (req, res) => {
       data[index] = { ...data[index], ...updateData };
 
       // Save the updated 'data' array to the JSON file
-      fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
+      fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
 
       res.json({ message: 'Data updated successfully', updatedData: data[index] });
     } else {
@@ -87,7 +87,7 @@ app.delete('/deletes/:id', (req, res) => {
       const deletedItem = data.splice(index, 1);
 
     
-      fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
+      fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
 
       res.json({ message: 'Data deleted successfully', deletedData: deletedItem[0] });
     } else {

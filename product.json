@@ -46,5 +46,13 @@
     "description": "best laptop",
     "quantity": 4,
     "product_type": "laptop"
+  },
+  {
+    "id": 100,
+    "name": "acer p6",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 4,
+    "product_type": "laptop"
   }
 ]

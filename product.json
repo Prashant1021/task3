@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "samsung",
+    "price": 3000,
+    "description": "branded mobile",
+    "quantity": 60,
+    "product_type": "mobile phones"
+  },
+  {
+    "id": 2,
+    "name": "sony",
+    "price": 300000,
+    "description": "best sound system",
+    "quantity": 51,
+    "product_type": "music"
+  },
+  {
+    "id": 3,
+    "name": "dell",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 20,
+    "product_type": "laptop"
+  },
+  {
+    "id": 5,
+    "name": "acer",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 20,
+    "product_type": "laptop"
+  },
+  {
+    "id": 7,
+    "name": "acer",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 2,
+    "product_type": "laptop"
+  },
+  {
+    "id": 10,
+    "name": "acer p",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 4,
+    "product_type": "laptop"
+  }
+]

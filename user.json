@@ -21,8 +21,12 @@
   },
   {
     "id": 6,
-    "name": "easdad",
+    "name": "eden",
     "address": "brussels"
+  },
+  {
+    "id": 7,
+    "name": "suman",
+    "address": "kathmandu"
   }
-
 ]

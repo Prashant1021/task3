@@ -12,8 +12,13 @@ app.post('/creates', (req, res) => {
   try {
     const newData = req.body;
     data.push(newData);
-    fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
-    res.json({ message: 'Data added successfully', newData });
+    fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
+      if (err) {
+        res.status(500).json({ message: err.message });
+      } else {
+        res.json({ message: 'Data added successfully', newData });
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -63,10 +68,14 @@ app.patch('/updates/:id', (req, res) => {
     if (index !== -1) {
       data[index] = { ...data[index], ...updateData };
 
-      // Save the updated 'data' array to the JSON file
-      fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
-
-      res.json({ message: 'Data updated successfully', updatedData: data[index] });
+      // Save the updated 'data' array to the JSON file using fs.writeFile
+      fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
+        if (err) {
+          res.status(500).json({ message: err.message });
+        } else {
+          res.json({ message: 'Data updated successfully', updatedData: data[index] });
+        }
+      });
     } else {
       res.status(404).json({ message: 'Data with specified ID not found' });
     }
@@ -74,22 +83,25 @@ app.patch('/updates/:id', (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 app.delete('/deletes/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-
     const index = data.findIndex((entry) => entry.id === id);
 
     if (index !== -1) {
-    
       const deletedItem = data.splice(index, 1);
 
-    
-      fs.writeFileSync('./user.json', JSON.stringify(data, null, 2));
-
-      res.json({ message: 'Data deleted successfully', deletedData: deletedItem[0] });
+      // Save the updated 'data' array to the JSON file using fs.writeFile
+      fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
+        if (err) {
+          res.status(500).json({ message: err.message });
+        } else {
+          res.json({ message: 'Data deleted successfully', deletedData: deletedItem[0] });
+        }
+      });
     } else {
       res.status(404).json({ message: 'Data with specified ID not found' });
     }
@@ -97,6 +109,7 @@ app.delete('/deletes/:id', (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
@@ -104,14 +117,22 @@ app.delete('/deletes/:id', (req, res) => {
 app.post('/product-creates', (req, res) => {
   try {
     const newProduct = req.body;
-    console.log(newProduct)
+    console.log(newProduct);
     product.push(newProduct);
-    fs.writeFileSync('./product.json', JSON.stringify(product, null, 2));
-    res.json({ message: 'Data added successfully', newProduct });
+
+    // Save the updated 'product' array to the JSON file using fs.writeFile
+    fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
+      if (err) {
+        res.status(500).json({ message: err.message });
+      } else {
+        res.json({ message: 'Data added successfully', newProduct });
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
@@ -161,10 +182,14 @@ app.patch('/product-updates/:id', (req, res) => {
     if (index !== -1) {
       product[index] = { ...product[index], ...updateProduct };
 
-      // Save the updated 'data' array to the JSON file
-      fs.writeFileSync('./product.json', JSON.stringify(product, null, 2));
-
-      res.json({ message: 'Data updated successfully', updateProduct: product[index] });
+      // Save the updated 'product' array to the JSON file using fs.writeFile
+      fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
+        if (err) {
+          res.status(500).json({ message: err.message });
+        } else {
+          res.json({ message: 'Data updated successfully', updateProduct: product[index] });
+        }
+      });
     } else {
       res.status(404).json({ message: 'Data with specified ID not found' });
     }
@@ -172,6 +197,7 @@ app.patch('/product-updates/:id', (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
@@ -180,17 +206,19 @@ app.delete('/product-deletes/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-
     const index = product.findIndex((entry) => entry.id === id);
 
     if (index !== -1) {
-    
       const deletedItem = product.splice(index, 1);
 
-    
-      fs.writeFileSync('./product.json', JSON.stringify(product, null, 2));
-
-      res.json({ message: 'Data deleted successfully', deletedProduct: deletedItem[0] });
+      // Save the updated 'product' array to the JSON file using fs.writeFile
+      fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
+        if (err) {
+          res.status(500).json({ message: err.message });
+        } else {
+          res.json({ message: 'Data deleted successfully', deletedProduct: deletedItem[0] });
+        }
+      });
     } else {
       res.status(404).json({ message: 'Data with specified ID not found' });
     }
@@ -198,6 +226,7 @@ app.delete('/product-deletes/:id', (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
@@ -249,25 +278,26 @@ app.get('/products-name-description',(req,res)=>{
 
 
 
-
 app.patch('/update-quantity/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { quantity } = req.body;
-    console.log(quantity)
 
     const productIndex = product.findIndex((entry) => entry.id === id);
 
     if (productIndex !== -1) {
-     
       product[productIndex].quantity = quantity;
 
-     
-      fs.writeFileSync('./product.json', JSON.stringify(product, null, 2));
-
-      res.json({
-        message: 'Product quantity updated successfully',
-        updatedProduct: product[productIndex],
+      // Save the updated 'product' array to the JSON file using fs.writeFile
+      fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
+        if (err) {
+          res.status(500).json({ message: err.message });
+        } else {
+          res.json({
+            message: 'Product quantity updated successfully',
+            updatedProduct: product[productIndex],
+          });
+        }
       });
     } else {
       res.status(404).json({ message: 'Product with specified ID not found' });
@@ -276,6 +306,8 @@ app.patch('/update-quantity/:id', (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 
 

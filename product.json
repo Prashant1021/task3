@@ -4,7 +4,7 @@
     "name": "samsung",
     "price": 3000,
     "description": "branded mobile",
-    "quantity": 60,
+    "quantity": 670,
     "product_type": "mobile phones"
   },
   {
@@ -54,5 +54,13 @@
     "description": "best laptop",
     "quantity": 4,
     "product_type": "laptop"
+  },
+  {
+    "id": 2,
+    "name": "dell",
+    "price": 90000,
+    "description": "This is the description for dell.",
+    "quantity": 50,
+    "product_type": "Electronics"
   }
 ]

@@ -68,7 +68,7 @@ app.patch('/updates/:id', (req, res) => {
     if (index !== -1) {
       data[index] = { ...data[index], ...updateData };
 
-      // Save the updated 'data' array to the JSON file using fs.writeFile
+      
       fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
         if (err) {
           res.status(500).json({ message: err.message });
@@ -94,7 +94,7 @@ app.delete('/deletes/:id', (req, res) => {
     if (index !== -1) {
       const deletedItem = data.splice(index, 1);
 
-      // Save the updated 'data' array to the JSON file using fs.writeFile
+      
       fs.writeFile('./user.json', JSON.stringify(data, null, 2), (err) => {
         if (err) {
           res.status(500).json({ message: err.message });
@@ -120,7 +120,7 @@ app.post('/product-creates', (req, res) => {
     console.log(newProduct);
     product.push(newProduct);
 
-    // Save the updated 'product' array to the JSON file using fs.writeFile
+    
     fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
       if (err) {
         res.status(500).json({ message: err.message });
@@ -182,7 +182,7 @@ app.patch('/product-updates/:id', (req, res) => {
     if (index !== -1) {
       product[index] = { ...product[index], ...updateProduct };
 
-      // Save the updated 'product' array to the JSON file using fs.writeFile
+      
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
         if (err) {
           res.status(500).json({ message: err.message });
@@ -211,7 +211,7 @@ app.delete('/product-deletes/:id', (req, res) => {
     if (index !== -1) {
       const deletedItem = product.splice(index, 1);
 
-      // Save the updated 'product' array to the JSON file using fs.writeFile
+      
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
         if (err) {
           res.status(500).json({ message: err.message });
@@ -288,7 +288,7 @@ app.patch('/update-quantity/:id', (req, res) => {
     if (productIndex !== -1) {
       product[productIndex].quantity = quantity;
 
-      // Save the updated 'product' array to the JSON file using fs.writeFile
+     
       fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
         if (err) {
           res.status(500).json({ message: err.message });

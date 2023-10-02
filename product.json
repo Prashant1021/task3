@@ -4,7 +4,7 @@
     "name": "samsung",
     "price": 3000,
     "description": "branded mobile",
-    "quantity": 670,
+    "quantity": 100,
     "product_type": "mobile phones"
   },
   {
@@ -12,7 +12,7 @@
     "name": "sony",
     "price": 300000,
     "description": "best sound system",
-    "quantity": 51,
+    "quantity": 46,
     "product_type": "music"
   },
   {
@@ -62,5 +62,13 @@
     "description": "This is the description for dell.",
     "quantity": 50,
     "product_type": "Electronics"
+  },
+  {
+    "id": 1001,
+    "name": "acer p96",
+    "price": 90000,
+    "description": "best laptop",
+    "quantity": 44,
+    "product_type": "laptop"
   }
 ]

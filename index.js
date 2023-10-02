@@ -5,6 +5,7 @@ const app = express();
 const data=require("./user.json")
 const product=require("./product.json")
 
+
 app.use(express.json());
 
 
@@ -326,11 +327,64 @@ app.get('/out-of-stock', (req, res) => {
 });
 
 
+//* order quantity
 
 
+const cart = require("./cart.json"); 
 
+app.post('/add-to-cart', (req, res) => {
+  try {
+    const { id, quantity } = req.body;
 
+    
+    const selectedProduct = product.find((p) => p.id === id);
 
+    if (!selectedProduct) {
+      res.status(404).json({ message: 'Product not found' });
+      return;
+    }
+
+    
+    if (selectedProduct.quantity < quantity) {
+      res.status(400).json({ message: 'Not enough stock available' });
+      return;
+    }
+
+    
+    const cartItem = {
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      quantity,
+    };
+    cart.push(cartItem); 
+    selectedProduct.quantity = selectedProduct.quantity - quantity;
+    fs.writeFile('./product.json', JSON.stringify(product, null, 2), (err) => {
+      if (err) {
+        res.status(500).json({ message: err.message });
+      } else {
+
+        fs.writeFile('./cart.json', JSON.stringify(cart, null, 2), (cartErr) => {
+          if (cartErr) {
+            res.status(500).json({ message: cartErr.message });
+          } else {
+            res.json({ message: 'Product added to cart successfully', cartItem });
+          }
+        });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get('/get-cart', (req, res) => {
+  try {
+    res.json(cart);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
   
 app.listen(3000,()=>{
     console.log("app is listening on port 3000");
